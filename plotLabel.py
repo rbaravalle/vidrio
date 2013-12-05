@@ -54,8 +54,8 @@ def segment(im,frame, nsize):
     # thresh = image.mean()
     #bw = closing(image > thresh, square(3))
     bw = image < 1.2*thresh
-    fig, ax = plt.subplots(ncols=1, nrows=1)#, figsize=(6, 6))
-    ax.imshow(bw, cmap=matplotlib.cm.gray)
+    #fig, ax = plt.subplots(ncols=1, nrows=1)#, figsize=(6, 6))
+    #ax.imshow(bw, cmap=matplotlib.cm.gray)
 
     # remove artifacts connected to image border
     #cleared = bw.copy()
@@ -77,20 +77,10 @@ def segment(im,frame, nsize):
     i = 0
     array = regionprops(label_image, ['Area', 'BoundingBox'])
     array = filter(lambda i: i['Area'] < maxArea and i['Area'] > minArea,array)
+    centers = map(lambda i: i['centroid'],array)
+    print len(centers)
 
-    for region in array:
-        # draw rectangle around segmented objects
-        minr, minc, maxr, maxc = region['BoundingBox']
-        rect = mpatches.Rectangle((minc, minr), maxc - minc, maxr - minr,
-                                  fill=False, edgecolor='red', linewidth=2)
-        #print rect
-        ax.add_patch(rect)
-        x0 = int((maxc+minc)/2)
-        y0 = int((maxc+minc)/2)
-        if(not(x0 == 0 and y0 == 0)):
-            centers.append([x0,y0])
-
-    plt.savefig('images/outfile'+str(frame)+'.jpg')
+    #plt.savefig('images/outfile'+str(frame)+'.jpg')
 
     return centers
 

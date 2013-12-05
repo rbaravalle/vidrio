@@ -55,7 +55,7 @@ def main():
         # Obtain actual frame from video
         success, img = cap.read()
         # Save Image
-        scipy.misc.imsave('images/outfile'+str(videoFrame)+'_f.jpg', img)
+        #scipy.misc.imsave('images/outfile'+str(videoFrame)+'_f.jpg', img)
 
            
         if(videoFrame > -1): 
