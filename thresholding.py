@@ -39,7 +39,7 @@ def segmentAlg(I,frame):
 
     # Thresholding algorithm
     #binary_img = white.white(I,Nx,Ny,20,1.15)#mask < 80
-    binary_img = im < 200
+    binary_img = im > 100
     #scipy.misc.imsave('images/outfile'+str(frame)+'_m.jpg', binary_img)
 
     binary_img = ndimage.binary_opening(binary_img, structure=np.ones((2,2))).astype(np.int)
@@ -88,14 +88,9 @@ def segment(I,frame,nsize):
     for i in range(len(centers)):
         label_im[centers[i][0]][centers[i][1]] = 0
 
-    # Save centers of mass coordinates in a csv file
-    filec = 'csv/coords'+str(frame)+'.csv'
-    with open(filec, 'wb') as f:
-        writer = csv.writer(f)
-        writer.writerows(np.array(centers).astype(np.int))
-
     # Save Image
     scipy.misc.imsave('images/outfile'+str(frame)+'.jpg', label_im*255)
 
-    return
+    return centers
+
 

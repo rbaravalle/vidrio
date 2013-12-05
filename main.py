@@ -14,6 +14,7 @@ import Image
 import errno
 import os
 import scipy
+import output
 
 # Segmentation algorithms
 import thresholding
@@ -63,8 +64,11 @@ def main():
 
                 # Image processing
                 img = Image.fromarray(img,'RGB')
+                centers = algorithms[actual_algorithm].segment(img,videoFrame,nsize)
 
-                algorithms[actual_algorithm].segment(img,videoFrame,nsize)
+                # Save output
+                output.saveData(centers,videoFrame)
+
                 cv2.waitKey(1)
                 
                 # Debug - FPS (Frames Per Second)
@@ -82,5 +86,12 @@ def main():
 
         videoFrame+=1
 
+def testImage(filename):
+    img = Image.open(filename)
+    #img = Image.fromarray(img,'RGB')
+    algorithms[actual_algorithm].segment(img,-1,nsize)
+    
+
 #Begin loop
 main()
+#testImage('data/test2.jpg')

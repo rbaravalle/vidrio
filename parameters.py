@@ -19,4 +19,9 @@ video = 'data/video.3gp'
 # actual algorithm
 # 0 = thresholding
 # 1 = plot_label
-actual_algorithm = 0
+actual_algorithm = 1
+
+# max area of interest in objects
+maxArea = 1000
+# min area of interest in objects
+minArea = 10
